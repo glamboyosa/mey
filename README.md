@@ -70,7 +70,7 @@ return <div>{data.map((el: any) => el.title)[0]}</div>;
 import  {useMutation}  from "mey";
 
 const { data, loading, error, handleRequest } = useMutation(
-  "https://jsonplaceholder.typicode.com/posts"
+  "https://jsonplaceholder.typicode.com/posts", "post"
 );
 const submitHandler = () => {
 const randomNumber = Math.random() * 100;
