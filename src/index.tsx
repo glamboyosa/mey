@@ -163,7 +163,7 @@ const useMutation = (
     }
     if (requestType === requestTypes.PUT) {
       axios
-        .post(
+        .put(
           url,
           body,
           authHeaderValues && {
@@ -187,15 +187,12 @@ const useMutation = (
     }
     if (requestType === requestTypes.DELETE) {
       axios
-        .post(
-          url,
-          body,
-          authHeaderValues && {
-            headers: {
-              [authHeaderValues.headerName]: authHeaderValues.headerValue,
-            },
-          }
-        )
+        .delete(url, {
+          data: body,
+          headers: authHeaderValues && {
+            [authHeaderValues.headerName]: authHeaderValues.headerValue,
+          },
+        })
         .then((resp) => {
           dispatch({
             type: ActionTypes.SUCCESS,
