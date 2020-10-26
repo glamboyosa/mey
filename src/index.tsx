@@ -64,19 +64,14 @@ const mutationReducer = (
   }
 };
 // data fetching hook
-const useFetch = (
-  url: string,
-  authHeaderValues?: { headerName: string; headerValue: string }
-) => {
+const useFetch = (url: string, headers?: { [key: string]: any }) => {
   const [state, dispatch] = useReducer(fetchReducer, initialfetchState);
   useEffect(() => {
     axios
       .get(
         url,
-        authHeaderValues && {
-          headers: {
-            [authHeaderValues.headerName]: authHeaderValues.headerValue,
-          },
+        headers && {
+          headers,
         }
       )
       .then((resp) => {
@@ -97,10 +92,8 @@ const useFetch = (
     axios
       .get(
         url,
-        authHeaderValues && {
-          headers: {
-            [authHeaderValues.headerName]: authHeaderValues.headerValue,
-          },
+        headers && {
+          headers,
         }
       )
       .then((resp) => {
@@ -126,7 +119,7 @@ const useFetch = (
 const useMutation = (
   url: string,
   requestType: "post" | "put" | "delete",
-  authHeaderValues?: { headerName: string; headerValue: string }
+  headers?: { [key: string]: any }
 ) => {
   const [state, dispatch] = useReducer(mutationReducer, initialMutationState);
   const requestHandler = (body: any) => {
@@ -142,10 +135,8 @@ const useMutation = (
         .post(
           url,
           body,
-          authHeaderValues && {
-            headers: {
-              [authHeaderValues.headerName]: authHeaderValues.headerValue,
-            },
+          headers && {
+            headers,
           }
         )
         .then((resp) => {
@@ -166,10 +157,8 @@ const useMutation = (
         .put(
           url,
           body,
-          authHeaderValues && {
-            headers: {
-              [authHeaderValues.headerName]: authHeaderValues.headerValue,
-            },
+          headers && {
+            headers,
           }
         )
         .then((resp) => {
@@ -189,9 +178,7 @@ const useMutation = (
       axios
         .delete(url, {
           data: body,
-          headers: authHeaderValues && {
-            [authHeaderValues.headerName]: authHeaderValues.headerValue,
-          },
+          headers: headers && headers,
         })
         .then((resp) => {
           dispatch({

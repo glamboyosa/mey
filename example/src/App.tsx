@@ -9,9 +9,9 @@ const App = () => {
     error: mutationError,
     loading: mutationLoading,
     handleRequest,
-  } = useMutation("https://jsonplaceholder.typicode.com/posts", "post", {
-    headerName: "Authorization",
-    headerValue: "authentication-token",
+  } = useMutation("https://jsonplaceholder.typicode.com/posts", "delete", {
+    authorization: " bearer sfsfsfsf",
+    xpth: "xsssf",
   });
   const submitHandler = () => {
     const randomNumber = Math.random() * 100;

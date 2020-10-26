@@ -51,8 +51,8 @@ import { useFetch } from "mey";
 const { data, loading, error, refetch } = useFetch(
   "https://jsonplaceholder.typicode.com/posts",
   {
-    headerName: "Authorization",
-    headerValue: "authentication-token",
+    authorization: " bearer authentication-token",
+    xpth: "xsssf",
   }
 );
 if (!data && loading) {
@@ -94,8 +94,8 @@ import  {useMutation}  from "mey";
 
 const { data, loading, error, handleRequest } = useMutation(
   "https://jsonplaceholder.typicode.com/posts", "post", {
-    headerName: "Authorization",
-    headerValue: "authentication-token"
+    authorization: " bearer authentication-token",
+    xpth: "xsssf",
   }
 );
 const submitHandler = () => {
@@ -116,20 +116,20 @@ return (
 ## useFetch API
 
 ```tsx
-const { data, loading, error, refetch } = useFetch(url, authHeaderValues);
+const { data, loading, error, refetch } = useFetch(url, headers);
 ```
 
 ### Parameters
 
-- url: the URL path you want to fetch
-- authHeaderValues: (optional) an object containing two properties: `headerName` and `headerValue` used to add an authentication header.
+- url: the URL path you want to fetch.
+- headers: (optional) an object representing the values you want to set on the request header.
 
 ### Values
 
-- data: data for the given path
-- loading: a boolean representing whether the request is loading or not
-- error: a string representing a potential error thrown
-- refetch: a function that refetches data
+- data: data for the given path.
+- loading: a boolean representing whether the request is loading or not.
+- error: a string representing a potential error thrown.
+- refetch: a function that refetches data.
 
 ## useMutation API
 
@@ -137,21 +137,21 @@ const { data, loading, error, refetch } = useFetch(url, authHeaderValues);
 const { data, loading, error, handleRequest } = useMey(
   url,
   requestType,
-  authHeaderValues
+  headers
 );
 ```
 
 ### Parameters
 
-- url: the URL path you want to fetch
-- requestType: a union of string types representing the type of mutation you want to carry out i.e put, post & delete
-- authHeaderValues: (optional) an object containing two properties: `headerName` and `headerValue` used to add an authentication header.
+- url: the URL path you want to fetch.
+- requestType: a union of string types representing the type of mutation you want to carry out i.e put, post & delete.
+- headers: (optional) an object representing the values you want to set on the request header.
 
 ### Values
 
-- data: data for the given path
-- loading: a boolean representing whether the request is loading or not
-- error: a string representing a potential error thrown
+- data: data for the given path.
+- loading: a boolean representing whether the request is loading or not.
+- error: a string representing a potential error thrown.
 - handleRequest: a function that handles dispatching requests. it accepts a `body` value. if the `body` value is not an object it stops execution and prints an error message to the console.
 
 ## Support
