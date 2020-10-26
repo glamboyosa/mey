@@ -1,6 +1,6 @@
 {
   "name": "mey",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A react package that exports hooks for handling the request lifecycle",
   "author": "glamboyosa",
   "license": "MIT",
