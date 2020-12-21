@@ -1,8 +1,27 @@
-import { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import * as ActionTypes from "./constants";
 import * as requestTypes from "./requestTypes";
 import axios, { AxiosResponse } from "axios";
+// BaseURL
+let baseURL: string;
+// Mey Provider props
+type MeyProvider = {
+  children: React.ReactNode;
+  BaseURL: string;
+};
+// Mey Provider
+export const MeyProvider = ({ children, BaseURL }: MeyProvider) => {
+  const hyperLink = BaseURL.split(":")[0] + "://";
+  const extractedUrl = BaseURL.split(":")[1].split("//")[1];
+  if (extractedUrl.includes("/")) {
+    const splitURL = extractedUrl.split("");
+    baseURL = hyperLink + splitURL.slice(0, splitURL.length - 1).join("");
+  } else {
+    baseURL = BaseURL;
+  }
 
+  return <React.Fragment>{children}</React.Fragment>;
+};
 // reducer setup
 const initialfetchState = { data: null, loading: true, error: null };
 const initialMutationState = { data: null, loading: false, error: null };
@@ -66,10 +85,11 @@ const mutationReducer = (
 // data fetching hook
 const useFetch = (url: string, headers?: { [key: string]: any }) => {
   const [state, dispatch] = useReducer(fetchReducer, initialfetchState);
+
   useEffect(() => {
     axios
       .get(
-        url,
+        baseURL ? baseURL + url : url,
         headers && {
           headers,
         }
@@ -122,9 +142,9 @@ const useMutation = (
   headers?: { [key: string]: any }
 ) => {
   const [state, dispatch] = useReducer(mutationReducer, initialMutationState);
+
   const requestHandler = (body: any) => {
     if (typeof body !== "object") {
-      console.log("body must be an object");
       return;
     }
     dispatch({

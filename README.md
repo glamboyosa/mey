@@ -87,6 +87,27 @@ return (
 
 ```
 
+## Global Config
+
+`Mey` ships with a provider called `MeyProvider` that you would wrap around `<App/>` or `<Component/>` in your root, entry point of your project as the case may be.
+`MeyProvider` accepts a single prop `BaseURL` that is the primary URL you would be making calls to. the point is to eliminate typing the same base path in every component that uses a hook. you'd simply now pass the path you're trying to hit e.g "/posts" which would translate to "https://yourbasepath.com/posts"
+
+## Global Config Example
+
+```tsx
+import "./index.css";
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { MeyProvider } from "mey";
+ReactDOM.render(
+  <MeyProvider BaseURL="https://yourbasepath.com">
+    <App />
+  </MeyProvider>,
+  document.getElementById("root")
+);
+```
+
 ## Extended useMutation Usage
 
 ```tsx
