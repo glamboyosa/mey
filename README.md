@@ -43,27 +43,6 @@ if (error) {
 return <div>{data.map((el: any) => el.title)[0]}</div>;
 ```
 
-## Extended useFetch Usage
-
-```tsx
-import { useFetch } from "mey";
-
-const { data, loading, error, refetch } = useFetch(
-  "https://jsonplaceholder.typicode.com/posts",
-  {
-    authorization: " bearer authentication-token",
-    xpth: "xsssf",
-  }
-);
-if (!data && loading) {
-  return <div> loading </div>;
-}
-if (error) {
-  return <div> {error} </div>;
-}
-return <div>{data.map((el: any) => el.title)[0]}</div>;
-```
-
 ## useMutation Usage
 
 ```tsx
@@ -106,6 +85,27 @@ ReactDOM.render(
   </MeyProvider>,
   document.getElementById("root")
 );
+```
+
+## Extended useFetch Usage
+
+```tsx
+import { useFetch } from "mey";
+
+const { data, loading, error, refetch } = useFetch(
+  "https://jsonplaceholder.typicode.com/posts",
+  {
+    authorization: " bearer authentication-token",
+    xpth: "xsssf",
+  }
+);
+if (!data && loading) {
+  return <div> loading </div>;
+}
+if (error) {
+  return <div> {error} </div>;
+}
+return <div>{data.map((el: any) => el.title)[0]}</div>;
 ```
 
 ## Extended useMutation Usage
