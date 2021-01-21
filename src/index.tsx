@@ -85,11 +85,11 @@ const mutationReducer = (
 // data fetching hook
 const useFetch = (url: string, headers?: { [key: string]: any }) => {
   const [state, dispatch] = useReducer(fetchReducer, initialfetchState);
-
+  const URL = baseURL ? baseURL + url : url;
   useEffect(() => {
     axios
       .get(
-        baseURL ? baseURL + url : url,
+        URL,
         headers && {
           headers,
         }
@@ -106,12 +106,12 @@ const useFetch = (url: string, headers?: { [key: string]: any }) => {
           error: err.message,
         });
       });
-  }, [url]);
+  }, []);
   const refetch = () => {
     dispatch({ type: ActionTypes.LOADING });
     axios
       .get(
-        url,
+        URL,
         headers && {
           headers,
         }
@@ -141,10 +141,12 @@ const useMutation = (
   requestType: "post" | "put" | "delete",
   headers?: { [key: string]: any }
 ) => {
+  const URL = baseURL ? baseURL + url : url;
   const [state, dispatch] = useReducer(mutationReducer, initialMutationState);
 
   const requestHandler = (body: any) => {
     if (typeof body !== "object") {
+      console.log("Invalid request body.");
       return;
     }
     dispatch({
@@ -153,7 +155,7 @@ const useMutation = (
     if (requestType === requestTypes.POST) {
       axios
         .post(
-          url,
+          URL,
           body,
           headers && {
             headers,
@@ -175,7 +177,7 @@ const useMutation = (
     if (requestType === requestTypes.PUT) {
       axios
         .put(
-          url,
+          URL,
           body,
           headers && {
             headers,
@@ -196,7 +198,7 @@ const useMutation = (
     }
     if (requestType === requestTypes.DELETE) {
       axios
-        .delete(url, {
+        .delete(URL, {
           data: body,
           headers: headers && headers,
         })
