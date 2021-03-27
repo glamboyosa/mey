@@ -83,7 +83,7 @@ const mutationReducer = (
   }
 };
 // data fetching hook
-const useFetch = (url: string, headers?: { [key: string]: any }) => {
+function useFetch<T = any>(url: string, headers?: { [key: string]: any }) {
   const [state, dispatch] = useReducer(fetchReducer, initialfetchState);
   const URL = baseURL ? baseURL + url : url;
   useEffect(() => {
@@ -130,17 +130,17 @@ const useFetch = (url: string, headers?: { [key: string]: any }) => {
       });
   };
   return {
-    data: state.data,
+    data: state.data as T,
     loading: state.loading,
     error: state.error,
     refetch,
   };
-};
-const useMutation = (
+}
+function useMutation<T = any>(
   url: string,
   requestType: "post" | "put" | "delete",
   headers?: { [key: string]: any }
-) => {
+) {
   const URL = baseURL ? baseURL + url : url;
   const [state, dispatch] = useReducer(mutationReducer, initialMutationState);
 
@@ -217,10 +217,10 @@ const useMutation = (
     }
   };
   return {
-    data: state.data,
+    data: state.data as T,
     loading: state.loading,
     error: state.error,
     handleRequest: requestHandler,
   };
-};
+}
 export { useFetch, useMutation };

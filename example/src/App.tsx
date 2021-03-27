@@ -1,9 +1,11 @@
 import React from "react";
 import { useMutation, useFetch } from "mey";
 const App = () => {
-  const { data, loading, error, refetch } = useFetch(
-    "https://jsonplaceholder.typicode.com/posts"
-  );
+  // {body: string; userId: number; id: number; title: string;}[]
+  const { data, loading, error, refetch } = useFetch<
+    { body: string; userId: number; id: number; title: string }[]
+  >("https://jsonplaceholder.typicode.com/posts");
+  console.log(data);
   const {
     data: mutationData,
     error: mutationError,
@@ -28,7 +30,7 @@ const App = () => {
   }
   return (
     <div>
-      {data.map((el: any) => el.title)[0]}
+      {data.map((el) => el.title)[0]}
       <p>
         {" "}
         generate a new random number:{" "}

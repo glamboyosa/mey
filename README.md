@@ -66,6 +66,26 @@ return (
 
 ```
 
+## Typing the response
+
+If you want your response typed both `useFetch` and `useMutation` accept a generic in which you'd pass in the type. You can view in [`example/src/index.tsx`](https://github.com/glamboyosa/mey/blob/master/example/src/index.tsx) or an example `useFetch` implementation down below:
+
+```tsx
+import { useFetch } from "mey";
+const { data, loading, error, refetch } = useFetch<
+  { body: string; userId: number; id: number; title: string }[]
+>("https://jsonplaceholder.typicode.com/posts");
+console.log("The data is:");
+console.log(data);
+if (!data && loading) {
+  return <div> loading </div>;
+}
+if (error) {
+  return <div> {error} </div>;
+}
+return <div>{data.map((el) => el.title)[0]}</div>;
+```
+
 ## Global Config
 
 `Mey` ships with a provider called `MeyProvider` that you would wrap around `<App/>` or `<Component/>` in your root, entry point of your project as the case may be.
