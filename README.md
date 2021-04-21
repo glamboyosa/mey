@@ -198,7 +198,7 @@ const { data, loading, error, handleRequest } = useMey(
 ## Support
 
 Have a question ? send me an email @ ogbemudiatimothy@gmail.com or hit me up on [twitter](https://twitter.com/glamboyosa).
-also feel free to checkout my [portfolio](https://timothyogbemudia.netlify.app) (i'm available for work 😊)
+also feel free to checkout my [portfolio](https://timothyogbemudia.netlify.app) 
 
 ## License
 
