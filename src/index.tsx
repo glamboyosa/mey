@@ -9,6 +9,7 @@ type MeyProvider = {
   children: React.ReactNode;
   BaseURL: string;
 };
+axios.defaults.withCredentials = true;
 // Mey Provider
 export const MeyProvider = ({ children, BaseURL }: MeyProvider) => {
   const hyperLink = BaseURL.split(":")[0] + "://";
@@ -144,11 +145,7 @@ function useMutation<T = any>(
   const URL = baseURL ? baseURL + url : url;
   const [state, dispatch] = useReducer(mutationReducer, initialMutationState);
 
-  const requestHandler = (body: any) => {
-    if (typeof body !== "object") {
-      console.log("Invalid request body.");
-      return;
-    }
+  const requestHandler = (body: { [key: string]: any }) => {
     dispatch({
       type: ActionTypes.LOADING,
     });
